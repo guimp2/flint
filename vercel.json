@@ -1,0 +1,13 @@
+{
+
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+
+  "headers": [
+    { "source": "/ezvsl-player.js", "headers": [
+        { "key": "Cache-Control", "value": "no-store" },
+        { "key": "Content-Type", "value": "application/javascript" }
+      ]
+    }
+  ]
+
+}

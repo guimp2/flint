@@ -1,0 +1,17 @@
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  background: linear-gradient(
+    to bottom,
+    #dbecf8,
+    #fbf17c,
+    #f3af59
+  );
+  background-attachment: fixed;
+  background-size: cover;
+  background-color: #fbf17c;
+  color: #000;
+}

@@ -1,69 +1,70 @@
-# Mutirão.AI — Dashboard ao vivo
+# Mutirão.AI — Dashboard ao vivo Salvador
 
-Dashboard HTML estático que puxa dados do Google Sheets em tempo real usando o endpoint CSV público do Google Visualization.
+Dashboard HTML estático que puxa dados em tempo real da aba **Salvador** desta planilha:
+
+https://docs.google.com/spreadsheets/d/1hJHXy7LlO7hXVroqMYRFHAGB9o4B78OVgqBWGKdKxR4/edit?usp=sharing
+
+## O que ele calcula
+
+1. Total de inscritos: conta células preenchidas na coluna `E-mail`.
+2. Ranking da coluna `Já usa IA`.
+3. Ranking da coluna `Ocupação`, agrupado por categoria.
+4. Apanhado semântico da coluna `O que quer aprender`.
+
+## Importante
+
+A planilha precisa estar com permissão:
+
+**Qualquer pessoa com o link pode visualizar**.
+
+Sem isso, o navegador não consegue puxar o CSV público do Google Sheets.
 
 ## Como colocar no ar
 
-### 1. Prepare a planilha
-A planilha precisa estar acessível publicamente para leitura:
+### Opção rápida — Netlify
 
-- Abra o Google Sheets.
-- Clique em **Compartilhar**.
-- Em **Acesso geral**, selecione **Qualquer pessoa com o link**.
-- Permissão: **Leitor**.
+1. Acesse https://app.netlify.com/drop
+2. Arraste a pasta `mutirao-salvador-live-dashboard` ou o ZIP descompactado.
+3. O Netlify gera um link público automaticamente.
 
-Alternativa mais estável:
+### Opção rápida — Vercel
 
-- Arquivo → Compartilhar → **Publicar na web**.
-- Publique as abas usadas.
+1. Crie um projeto novo na Vercel.
+2. Suba esta pasta.
+3. Framework: `Other`.
+4. Deploy.
 
-## 2. Suba o HTML
-Você pode hospedar o arquivo `index.html` em qualquer hospedagem estática.
+### Opção GitHub Pages
 
-### Opção rápida: Netlify
-1. Acesse netlify.com.
-2. Vá em **Add new site → Deploy manually**.
-3. Arraste a pasta `mutirao-dashboard` ou apenas o `index.html`.
-4. O site entra no ar automaticamente.
-
-### Opção rápida: Vercel
-1. Acesse vercel.com.
-2. Crie um novo projeto.
-3. Suba esta pasta.
-4. Deploy automático.
-
-### Opção simples: GitHub Pages
 1. Crie um repositório no GitHub.
-2. Suba o `index.html` na raiz.
+2. Suba o arquivo `index.html`.
 3. Vá em Settings → Pages.
-4. Selecione branch `main` e pasta `/root`.
-5. Salve.
+4. Source: `Deploy from branch`.
+5. Branch: `main`, folder `/root`.
+6. Salve.
 
-## 3. Ajustes principais
-No final do `index.html`, edite o objeto `CONFIG` se mudar ID da planilha, nome das abas ou nomes das colunas.
+## Atualização dos dados
+
+O dashboard atualiza automaticamente a cada **5 minutos**.
+
+Para mudar esse tempo, edite no `index.html`:
 
 ```js
-const CONFIG = {
-  spreadsheetId: "1hJHXy7LlO7hXVroqMYRFHAGB9o4B78OVgqBWGKdKxR4",
-  refreshMs: 5 * 60 * 1000,
-  sheets: {
-    ead: "Mutirão.AI Geral",
-    saoPaulo: "Instituto Kondzilla",
-    fortaleza: "Fortaleza"
-  },
-  columns: {
-    email: "E-mail",
-    estado: "Estado",
-    rsvp: "RSVP Evento",
-    ocupacao: "Ocupação",
-    aprender: "O que quer aprender"
-  }
-};
+refreshMs: 5 * 60 * 1000
 ```
 
-## Observações
-- O dashboard conta células preenchidas na coluna `E-mail`.
-- Não deduplica e-mails.
-- Atualiza automaticamente a cada 5 minutos.
-- O ranking de ocupação e temas usa categorização por palavras-chave no próprio HTML.
-- Se aparecer erro de carregamento, normalmente é permissão da planilha.
+## Como trocar a aba
+
+No `index.html`, altere:
+
+```js
+sheetName: "Salvador"
+```
+
+## Como trocar a planilha
+
+No `index.html`, altere:
+
+```js
+spreadsheetId: "1hJHXy7LlO7hXVroqMYRFHAGB9o4B78OVgqBWGKdKxR4"
+```

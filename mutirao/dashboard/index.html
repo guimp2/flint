@@ -1,161 +1,125 @@
 <!doctype html>
 <html lang="pt-BR">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Mutirão.AI — Dashboard Salvador</title>
-  <meta name="description" content="Dashboard ao vivo do relatório interno Mutirão.AI Salvador, puxando dados do Google Sheets." />
-  <style>
-    :root{
-      --bg:#070707; --ink:#0b0b0b; --card:#fff; --muted:#666;
-      --mint:#78f2d5; --mint2:#38d9bf; --purple:#7c2ee6; --purple2:#c98cff;
-      --pink:#ff4ab3; --yellow:#ffd95a; --blue:#2f9df4; --line:#e8e2f2;
-      --radius:22px; --shadow:0 24px 70px rgba(0,0,0,.32); --max:1180px;
-    }
-    *{box-sizing:border-box} body{margin:0;font-family:Inter,Arial,Helvetica,sans-serif;background:radial-gradient(circle at 90% 2%,rgba(124,46,230,.28),transparent 28%),radial-gradient(circle at 6% 4%,rgba(120,242,213,.22),transparent 23%),var(--bg);color:#fff}.wrap{width:min(var(--max),calc(100% - 28px));margin:0 auto;padding:22px 0 34px}
-    header{display:grid;grid-template-columns:1.15fr .85fr;gap:24px;align-items:center;padding:18px 0 24px}.brand{display:flex;align-items:center;gap:17px}.seal{width:92px;height:92px;border-radius:50%;background:var(--mint);color:#000;display:grid;place-items:center;font-weight:950;font-size:19px;line-height:.9;transform:rotate(-12deg);flex:0 0 auto}.logo{font-size:clamp(42px,7vw,82px);font-weight:950;letter-spacing:-5px;line-height:.82}.logo .star{color:var(--pink);font-size:.55em;padding:0 2px}.sublogo{font-size:clamp(23px,3vw,38px);letter-spacing:-1px;font-weight:400;margin-left:95px}.sublogo b{color:var(--pink)}.titleBox{border-left:2px solid rgba(255,255,255,.55);padding-left:26px;min-height:118px;display:flex;flex-direction:column;justify-content:center}.titleBox h1{margin:0;font-size:clamp(34px,4vw,54px);line-height:.9;letter-spacing:-1.5px}.titleBox h1 span{color:var(--purple2);display:block}.meta{margin-top:14px;display:flex;flex-wrap:wrap;gap:10px;color:var(--mint);font-weight:850}.pill{border:1px solid rgba(120,242,213,.55);background:rgba(120,242,213,.09);padding:8px 11px;border-radius:999px}.panel{background:var(--card);color:var(--ink);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;border:1px solid rgba(255,255,255,.22)}.hero{display:grid;grid-template-columns:1.65fr .9fr;gap:20px;margin-bottom:18px}.heroLeft{background:linear-gradient(145deg,#fff,#f4ecff);min-height:330px;position:relative;padding:0;overflow:hidden}.heroLeft .head{background:linear-gradient(90deg,var(--purple),var(--purple2));color:#fff;padding:14px 24px;font-size:22px;font-weight:950}.cityArt{position:absolute;right:0;bottom:0;width:56%;height:76%;opacity:.42;background:linear-gradient(180deg,transparent,#d2b3ff);clip-path:polygon(0 100%,8% 46%,18% 54%,24% 28%,34% 52%,42% 19%,50% 55%,60% 30%,68% 55%,78% 35%,86% 62%,100% 46%,100% 100%)}.bigNum{position:relative;z-index:2;padding:54px 44px}.bigNum .icon{font-size:64px;color:var(--purple);line-height:1}.bigNum .num{font-size:clamp(100px,12vw,170px);font-weight:950;color:var(--purple);letter-spacing:-8px;line-height:.88}.bigNum .label{font-size:33px;font-weight:950}.heroRight{background:linear-gradient(145deg,#d9fff6,#d6b2ff);padding:32px}.heroRight h2{font-size:48px;line-height:.88;margin:0;color:#000}.heroRight h2 span{color:var(--purple);display:block}.heroRight p{font-size:18px;line-height:1.26;font-weight:700}.tag{display:inline-block;background:var(--purple2);color:white;border-radius:8px;padding:7px 10px;font-weight:950;margin-top:10px}.grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:18px}.sectionHeader{padding:13px 18px;color:#000;font-weight:950;font-size:21px;text-align:center}.purpleHead{background:linear-gradient(90deg,var(--purple),var(--purple2));color:#fff}.mintHead{background:linear-gradient(90deg,var(--mint2),var(--mint));color:#000}.body{padding:26px 28px}.knowledge{display:grid;grid-template-columns:250px 1fr;gap:28px;align-items:center}.donut{width:230px;height:230px;border-radius:50%;background:conic-gradient(var(--purple) 0 47%, var(--mint2) 47% 73%, var(--yellow) 73% 100%);position:relative;display:grid;place-items:center}.donut:after{content:"";width:96px;height:96px;background:#fff;border-radius:50%;position:absolute}.donutCenter{z-index:2;font-size:32px;font-weight:950;color:var(--purple)}.legend{display:grid;gap:17px}.legendRow{display:grid;grid-template-columns:15px 1fr 62px;align-items:center;gap:10px;font-weight:780}.dot{width:15px;height:15px;border-radius:50%}.rankItem{display:grid;grid-template-columns:200px 1fr 70px;gap:12px;align-items:center;margin:11px 0;font-weight:800;font-size:15px}.rankItem .cat{grid-column:auto}.bar{height:10px;background:#eee;border-radius:999px;overflow:hidden}.bar span{display:block;height:100%;background:linear-gradient(90deg,var(--purple),var(--purple2));border-radius:999px}.topicsGrid{display:grid;grid-template-columns:1fr 1fr;gap:30px}.topic{display:grid;grid-template-columns:45px 1fr;gap:12px;align-items:start;margin:14px 0}.topicIcon{width:42px;height:42px;border-radius:50%;display:grid;place-items:center;background:#e5fff8}.topic h3{margin:0;font-size:16px;line-height:1.12}.topic p{margin:4px 0 0;color:#333;font-size:14px;line-height:1.2}.miniTitle{display:inline-block;background:var(--mint);padding:6px 16px;border-radius:999px;font-weight:950;margin-bottom:8px}.miniTitle.pink{background:#ff8ccc}.summary{margin-top:18px;background:linear-gradient(90deg,#ead6ff,#fff);display:grid;grid-template-columns:220px 1fr 1fr 1fr;gap:18px;align-items:center;padding:18px}.summaryTitle{background:linear-gradient(90deg,var(--purple),var(--purple2));color:white;margin:-18px 0 -18px -18px;align-self:stretch;display:flex;align-items:center;justify-content:center;font-weight:950;font-size:22px;padding:18px}.sumItem b{display:block;color:#000;font-size:14px}.sumItem span{font-size:13px;color:#222;line-height:1.15}.status{position:fixed;right:16px;bottom:16px;background:rgba(0,0,0,.76);border:1px solid rgba(255,255,255,.22);color:white;padding:10px 12px;border-radius:999px;font-size:12px;backdrop-filter:blur(8px)}
-    @media(max-width:920px){header,.hero,.grid2,.knowledge,.topicsGrid,.summary{grid-template-columns:1fr}.titleBox{border-left:0;padding-left:0}.sublogo{margin-left:0}.summaryTitle{margin:0;border-radius:14px}.heroLeft{min-height:270px}.bigNum{padding:38px 28px}.cityArt{width:72%}}
-  </style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#ffffff">
+  <title>Mutirão.AI — Dashboard ao vivo BH</title>
+  <meta name="description" content="Dashboard interno ao vivo do evento Mutirão.AI em Belo Horizonte.">
+  <link rel="icon" href="assets/logo-mutirao-ai.jpg">
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <div class="wrap">
-    <header>
-      <div class="brand"><div class="seal">100%<br>GRÁTIS</div><div><div class="logo">mUTIRÃO<span class="star">✱</span>AI</div><div class="sublogo">CRIAS.<b>BR</b></div></div></div>
-      <div class="titleBox"><h1>RELATÓRIO <span>SALVADOR</span></h1><div class="meta"><span class="pill">Dados da aba Salvador</span><span class="pill" id="today">--</span></div></div>
+  <div class="page-shell">
+    <header class="site-header">
+      <img class="brand-logo" src="assets/logo-mutirao-ai.jpg" alt="Mutirão.AI Crias.BR — 100% grátis">
+      <div class="header-copy">
+        <div class="eyebrow">DASHBOARD AO VIVO</div>
+        <h1>RELATÓRIO — BELO HORIZONTE</h1>
+        <div class="header-meta">
+          <span id="report-date">—</span>
+          <span class="meta-pill">Fonte: aba BH</span>
+          <button id="refresh-button" class="refresh-button" type="button" aria-label="Atualizar dados agora">
+            <svg aria-hidden="true"><use href="assets/icons.svg#refresh"></use></svg>
+            Atualizar
+          </button>
+        </div>
+      </div>
+      <img class="header-figure" src="assets/bh-figure.svg" alt="Ilustração de uma profissional com microfone">
     </header>
 
-    <section class="hero">
-      <div class="panel heroLeft"><div class="head">1. INSCRITOS — SALVADOR</div><div class="cityArt"></div><div class="bigNum"><div class="icon">👥</div><div class="num" id="emailCount">--</div><div class="label">INSCRITOS</div></div></div>
-      <div class="panel heroRight"><h2>SALVADOR <span>11 JULHO</span></h2><span class="tag">RELATÓRIO INTERNO</span><p>Dashboard ao vivo com leitura direta da aba Salvador na planilha do projeto. Os números são atualizados automaticamente a partir das células preenchidas.</p></div>
-    </section>
+    <main>
+      <section class="top-grid">
+        <article class="card card-highlight registrations-card">
+          <div class="card-heading">1. INSCRITOS</div>
+          <div class="registrations-layout">
+            <div>
+              <div id="email-count" class="hero-number skeleton">—</div>
+              <div class="hero-caption">inscritos para o evento BH</div>
+            </div>
+            <div class="maturity-box">
+              <svg class="maturity-icon" aria-hidden="true"><use href="assets/icons.svg#ai"></use></svg>
+              <div id="maturity-percent" class="maturity-number skeleton">—</div>
+              <p>já usam IA com frequência ou no trabalho</p>
+            </div>
+          </div>
+        </article>
 
-    <div class="grid2">
-      <section class="panel"><div class="sectionHeader purpleHead">2. JÁ USA IA — NÍVEL DE CONHECIMENTO</div><div class="body"><div class="knowledge"><div class="donut" id="knowledgeDonut"><div class="donutCenter">AI</div></div><div class="legend" id="knowledgeLegend"></div></div></div></section>
-      <section class="panel"><div class="sectionHeader purpleHead">3. OCUPAÇÃO — RANKING POR CATEGORIA</div><div class="body"><div id="occupationRank"></div></div></section>
-    </div>
+        <article class="card knowledge-card">
+          <div class="card-heading">2. NÍVEL DE CONHECIMENTO EM IA</div>
+          <div id="knowledge-ranking" class="ranking-list" aria-live="polite"></div>
+          <div class="insight-strip mint">
+            <svg aria-hidden="true"><use href="assets/icons.svg#ai"></use></svg>
+            <span id="knowledge-insight">Carregando leitura da base…</span>
+          </div>
+        </article>
+      </section>
 
-    <section class="panel" style="margin-top:18px"><div class="sectionHeader mintHead">4. O QUE QUEREM APRENDER — APANHADO GERAL</div><div class="body"><div class="topicsGrid"><div><span class="miniTitle">TEMAS MAIS CITADOS</span><div id="themes"></div></div><div><span class="miniTitle pink">DIFICULDADES MAIS CITADAS</span><div id="difficulties"></div></div></div></div></section>
+      <section class="middle-grid">
+        <article class="card">
+          <div class="card-heading">3. OCUPAÇÃO — POR CATEGORIA</div>
+          <div id="occupation-ranking" class="ranking-list compact" aria-live="polite"></div>
+          <div class="insight-strip mint">
+            <svg aria-hidden="true"><use href="assets/icons.svg#briefcase"></use></svg>
+            <span id="occupation-insight">Analisando os perfis profissionais…</span>
+          </div>
+        </article>
 
-    <section class="panel summary"><div class="summaryTitle">SÍNTESE EXECUTIVA</div><div class="sumItem"><b id="sumInscritos">-- inscritos</b><span>Base engajada para o encontro presencial.</span></div><div class="sumItem"><b id="sumMaturidade">Maturidade em IA</b><span>Leitura baseada no ranking “Já usa IA”.</span></div><div class="sumItem"><b>Foco em aplicação</b><span>Interesse concentrado em uso prático, conteúdo, negócios e automação.</span></div></section>
+        <article class="card">
+          <div class="card-heading">4. O QUE QUEREM APRENDER</div>
+          <div class="subheading purple">TEMAS MAIS CITADOS</div>
+          <div id="themes-list" class="topic-list" aria-live="polite"></div>
+        </article>
+      </section>
+
+      <section class="card difficulties-card">
+        <div class="card-heading">5. DIFICULDADES E LACUNAS MAIS CITADAS</div>
+        <div id="difficulties-list" class="difficulty-grid" aria-live="polite"></div>
+      </section>
+
+      <section class="card executive-card">
+        <div class="card-heading">6. SÍNTESE EXECUTIVA</div>
+        <div class="executive-grid">
+          <div class="executive-item">
+            <svg aria-hidden="true"><use href="assets/icons.svg#people"></use></svg>
+            <strong id="summary-total">—</strong>
+            <span>inscritos no total</span>
+          </div>
+          <div class="executive-item">
+            <svg aria-hidden="true"><use href="assets/icons.svg#ai"></use></svg>
+            <strong id="summary-mature">—</strong>
+            <span>já usam IA com frequência ou profissionalmente</span>
+          </div>
+          <div class="executive-item wide">
+            <svg aria-hidden="true"><use href="assets/icons.svg#briefcase"></use></svg>
+            <strong id="summary-profile">—</strong>
+            <span>perfil profissional predominante</span>
+          </div>
+          <div class="executive-item wide">
+            <svg aria-hidden="true"><use href="assets/icons.svg#automation"></use></svg>
+            <strong id="summary-interest">—</strong>
+            <span>principal interesse da base</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="methodology-note">
+        <svg aria-hidden="true"><use href="assets/icons.svg#info"></use></svg>
+        <div>
+          <strong>Metodologia</strong>
+          <span>Inscritos = células preenchidas na coluna “E-mail”. Ocupações e temas são agrupados automaticamente por palavras-chave; uma resposta de aprendizagem pode aparecer em mais de um tema.</span>
+        </div>
+      </section>
+    </main>
   </div>
-  <div class="status" id="status">Carregando dados…</div>
 
-  <script>
-    const CONFIG = {
-      spreadsheetId: "1hJHXy7LlO7hXVroqMYRFHAGB9o4B78OVgqBWGKdKxR4",
-      sheetName: "Salvador",
-      refreshMs: 5 * 60 * 1000,
-      columns: {
-        email: "E-mail",
-        usaIA: "Já usa IA",
-        ocupacao: "Ocupação",
-        aprender: "O que quer aprender"
-      }
-    };
+  <div id="live-status" class="live-status" role="status">Conectando à planilha…</div>
+  <div id="error-panel" class="error-panel" hidden>
+    <strong>Não foi possível ler a planilha.</strong>
+    <span id="error-message"></span>
+  </div>
 
-    const MONTHS = ["janeiro","fevereiro","março","abril","maio","junho","julho","agosto","setembro","outubro","novembro","dezembro"];
-    const fixedDate = new Date(2026, 6, 7);
-    document.getElementById("today").textContent = `${fixedDate.getDate()} de ${MONTHS[fixedDate.getMonth()]} de ${fixedDate.getFullYear()}`;
-
-    const $ = id => document.getElementById(id);
-    const clean = v => (v ?? "").toString().trim();
-    const norm = v => clean(v).normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
-    const esc = s => String(s).replace(/[&<>'"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#039;','"':'&quot;'}[c]));
-
-    function csvUrl(){
-      return `https://docs.google.com/spreadsheets/d/${CONFIG.spreadsheetId}/gviz/tq?tqx=out:csv&sheet=${encodeURIComponent(CONFIG.sheetName)}&cacheBust=${Date.now()}`;
-    }
-
-    async function fetchSheet(){
-      const res = await fetch(csvUrl());
-      if(!res.ok) throw new Error("Não foi possível carregar a planilha. Verifique se ela está pública para visualização.");
-      return parseCSV(await res.text());
-    }
-
-    function parseCSV(text){
-      const rows=[]; let row=[], cell="", quote=false;
-      for(let i=0;i<text.length;i++){
-        const c=text[i], n=text[i+1];
-        if(c==='"' && quote && n==='"'){ cell+='"'; i++; continue; }
-        if(c==='"'){ quote=!quote; continue; }
-        if(c===',' && !quote){ row.push(cell); cell=""; continue; }
-        if((c==='\n'||c==='\r') && !quote){ if(c==='\r'&&n==='\n') i++; row.push(cell); rows.push(row); row=[]; cell=""; continue; }
-        cell+=c;
-      }
-      if(cell || row.length){ row.push(cell); rows.push(row); }
-      const headers = rows.shift().map(clean);
-      return rows.filter(r => r.some(clean)).map(r => Object.fromEntries(headers.map((h,i)=>[h, clean(r[i])])))
-    }
-
-    function countFilled(rows, col){ return rows.filter(r => clean(r[col])).length; }
-    function ranking(rows, col){ const map=new Map(); rows.forEach(r => { const v=clean(r[col]); if(v) map.set(v,(map.get(v)||0)+1); }); return [...map.entries()].sort((a,b)=>b[1]-a[1]); }
-
-    function categoryOccupation(value){
-      const v = norm(value); if(!v) return "Não informado";
-      if(/design|designer|arte|diretor de arte|filmmaker|video|videomaker|foto|fotogra|motion|vfx|editor|audiovisual|produtor|criador|conteudo|ilustrador|cinegrafista|criativ/.test(v)) return "Criativos/audiovisual/design";
-      if(/marketing|publicit|social media|comunic|jornal|copy|planner|branding|midia|tr[aá]fego|influ/.test(v)) return "Marketing/comunicação";
-      if(/autonom|empreend|mei|empres|comerciante|consultor|vendedor|representante|corretor|negocio|loja/.test(v)) return "Empreendedor/autônomo";
-      if(/dj|mc|mus|cantor|rapper|beat|produtor musical|artista|funk|dan[çc]a/.test(v)) return "Música/artista";
-      if(/tech|ti|program|sistema|dados|analista de dados|desenvolv|engenheiro|suporte|informatica|computacao|dev|ia/.test(v)) return "Tech/TI/IA";
-      if(/estud|professor|docente|pedagog|educa|universit|aluno/.test(v)) return "Estudantes/educação";
-      if(/auxiliar|assistente|administr|coorden|gerente|financeir|contab|banc|rh|secret|corporativo|analista/.test(v)) return "Administrativo/corporativo";
-      if(/motorista|motoboy|barbeiro|padeiro|porteiro|seguran|servente|mecan|operador|tecnico|costureira|faxineira|servicos|serviços|cozinha|artesa|jardineiro|logistica/.test(v)) return "Operacional/serviços";
-      return "Outros";
-    }
-
-    function renderKnowledge(items){
-      const total = items.reduce((a,[,v])=>a+v,0) || 1;
-      const colors=["#7c2ee6","#38d9bf","#ffd95a","#ff4ab3","#2f9df4"];
-      let start=0;
-      const stops=items.map(([,v],i)=>{const p=v/total*100; const s=`${colors[i%colors.length]} ${start}% ${start+p}%`; start+=p; return s;}).join(", ");
-      $("knowledgeDonut").style.background = `conic-gradient(${stops})`;
-      $("knowledgeLegend").innerHTML = items.map(([label,value],i)=>`<div class="legendRow"><span class="dot" style="background:${colors[i%colors.length]}"></span><span>${esc(label)}</span><b>${value}</b></div>`).join("");
-      const mature = items.filter(([label]) => /uso|uso muito|dia a dia|trabalho/i.test(label)).reduce((a,[,v])=>a+v,0);
-      $("sumMaturidade").textContent = `${Math.round(mature/total*100)}% já usam IA`;
-    }
-
-    function renderOccupation(rows){
-      const map=new Map(); rows.forEach(r=>{ const c=categoryOccupation(r[CONFIG.columns.ocupacao]); map.set(c,(map.get(c)||0)+1); });
-      const items=[...map.entries()].sort((a,b)=>b[1]-a[1]).slice(0,9); const max=Math.max(...items.map(x=>x[1]),1); const total=items.reduce((a, [,v])=>a+v,0)||1;
-      $("occupationRank").innerHTML = items.map(([label,value])=>`<div class="rankItem"><div class="cat">${esc(label)}</div><div class="bar"><span style="width:${Math.max(5,value/max*100)}%"></span></div><div>${value} (${Math.round(value/total*100)}%)</div></div>`).join("");
-    }
-
-    const themeDefs = [
-      ["Uso prático de IA no dia a dia e no trabalho", "Aplicações reais para produtividade, resolver problemas e tomar melhores decisões.", "▶️", /pr[aá]tic|trabalho|dia|usar|aplica|rotina|decis|problema|produtiv/],
-      ["Vídeo e audiovisual", "Edição, geração de vídeos, roteiros, VFX, clipes e produção de conteúdo.", "🎥", /video|vídeo|clipe|filme|curta|vfx|motion|anima|audiovisual|edi[cç][aã]o|roteiro|imagem|visual|cinema/],
-      ["Criação de conteúdo e marketing", "Conteúdo para redes sociais, branding, copywriting, campanhas e estratégias com IA.", "📣", /conte[uú]do|marketing|social|branding|marca|campanha|instagram|tiktok|post|carrossel|copy|redes/],
-      ["Negócios e monetização", "Como usar IA para vender mais, empreender, escalar e gerar novas oportunidades.", "💰", /renda|dinheiro|neg[oó]cio|venda|cliente|lead|empreend|escala|empresa|moneti|oportunidade/],
-      ["Automação e agentes", "Automatizar tarefas, integrar ferramentas e construir fluxos inteligentes.", "🤖", /automat|agente|produtiv|processo|workflow|ferramenta|integrar|tarefa|tempo/]
-    ];
-    const diffDefs = [
-      ["Não saber como aplicar IA de forma estratégica", "Falta de clareza sobre onde e como usar IA para gerar impacto real.", "💬"],
-      ["Dificuldade em criar bons prompts", "Como escrever melhor e obter resultados consistentes da IA.", "✍️"],
-      ["Transformar IA em resultado profissional", "Como usar IA para entregar qualidade, resolver demandas e gerar valor.", "🎯"],
-      ["Produzir conteúdo audiovisual com mais qualidade", "Processos, técnicas e ferramentas para criar vídeos de alto nível.", "🎞️"],
-      ["Automatizar processos e ganhar produtividade", "Reduzir tarefas repetitivas e ganhar tempo usando IA e automações.", "⚡"]
-    ];
-
-    function renderLearning(rows){
-      const text = rows.map(r=>r[CONFIG.columns.aprender]).filter(Boolean).join(" \n ");
-      const themes = themeDefs.map(([t,d,i,rx])=>({t,d,i,count:(text.match(new RegExp(rx.source,"gi"))||[]).length})).sort((a,b)=>b.count-a.count);
-      $("themes").innerHTML = themes.map(x=>`<div class="topic"><div class="topicIcon">${x.i}</div><div><h3>${esc(x.t)}</h3><p>${esc(x.d)}</p></div></div>`).join("");
-      $("difficulties").innerHTML = diffDefs.map(([t,d,i])=>`<div class="topic"><div class="topicIcon">${i}</div><div><h3>${esc(t)}</h3><p>${esc(d)}</p></div></div>`).join("");
-    }
-
-    async function load(){
-      try{
-        $("status").textContent = "Atualizando dados…";
-        const rows = await fetchSheet();
-        const count = countFilled(rows, CONFIG.columns.email);
-        $("emailCount").textContent = count;
-        $("sumInscritos").textContent = `${count} inscritos`;
-        renderKnowledge(ranking(rows, CONFIG.columns.usaIA));
-        renderOccupation(rows);
-        renderLearning(rows);
-        $("status").textContent = `Atualizado ${new Date().toLocaleTimeString("pt-BR",{hour:"2-digit",minute:"2-digit"})}`;
-      }catch(e){ console.error(e); $("status").textContent = "Erro: verifique se a planilha está pública."; }
-    }
-    load(); setInterval(load, CONFIG.refreshMs);
-  </script>
+  <script src="config.js"></script>
+  <script src="app.js"></script>
 </body>
 </html>

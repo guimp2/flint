@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 320" role="img" aria-labelledby="title desc">
+  <title id="title">Ilustração abstrata de uma profissional com microfone</title>
+  <desc id="desc">Figura vetorial nas cores do projeto Mutirão.AI.</desc>
+  <defs>
+    <linearGradient id="jacket" x1="0" x2="1">
+      <stop offset="0" stop-color="#7CF2D6"/>
+      <stop offset="1" stop-color="#40DEB8"/>
+    </linearGradient>
+  </defs>
+  <g transform="translate(18 7)">
+    <path d="M278 83c-18-45-82-69-131-42-32 18-50 57-45 91 4 26 22 52 50 64 42 18 104 3 128-39 13-23 10-51-2-74z" fill="#0B0B0B"/>
+    <circle cx="210" cy="102" r="44" fill="#8B4A32"/>
+    <path d="M166 90c4-38 47-65 85-46 10 5 21 16 25 29-25-12-47-6-63 8-16 14-29 18-47 9z" fill="#121212"/>
+    <path d="M165 142c-24 4-50 19-69 43l-38 105h257l-29-105c-19-23-47-39-78-43l-43 0z" fill="url(#jacket)"/>
+    <path d="M168 144l42 48 38-48 18 146H130l38-146z" fill="#F6F2FF"/>
+    <path d="M98 184c-30 7-59 26-83 55l27 23c26-22 49-36 74-40l-18-38z" fill="#54E3C0"/>
+    <path d="M299 183c31 8 66 32 87 58l-29 21c-24-21-48-34-75-40l17-39z" fill="#54E3C0"/>
+    <path d="M282 187l43 31-34 47-32-53 23-25z" fill="#2A9BFF"/>
+    <path d="M291 211c17-15 34-22 47-24" fill="none" stroke="#181818" stroke-width="10" stroke-linecap="round"/>
+    <g transform="rotate(-18 341 180)">
+      <rect x="331" y="135" width="20" height="88" rx="10" fill="#111"/>
+      <ellipse cx="341" cy="127" rx="24" ry="20" fill="#8B41E8"/>
+      <path d="M321 127h40" stroke="#B88CFF" stroke-width="5"/>
+    </g>
+    <circle cx="148" cy="198" r="8" fill="#FF4CB4"/>
+    <path d="M78 287h274" stroke="#8B41E8" stroke-width="9" stroke-linecap="round" opacity=".22"/>
+  </g>
+</svg>

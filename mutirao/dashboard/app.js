@@ -2,6 +2,7 @@
   'use strict';
 
   const CONFIG = window.MUTIRAO_CONFIG;
+  const REGISTRATION_DISPLAY_OFFSET = Number(CONFIG.registrationDisplayOffset || 0);
   const $ = (id) => document.getElementById(id);
   const clean = (value) => (value ?? '').toString().trim();
   const normalize = (value) => clean(value)
@@ -331,9 +332,10 @@
     const mature = SNAPSHOT.knowledge.slice(0, 2).reduce((sum, [, count]) => sum + count, 0);
     const maturityPercent = Math.round((mature / SNAPSHOT.total) * 100);
 
-    $('email-count').textContent = SNAPSHOT.total;
+    const displayedTotal = SNAPSHOT.total + REGISTRATION_DISPLAY_OFFSET;
+    $('email-count').textContent = displayedTotal;
     $('maturity-percent').textContent = `${maturityPercent}%`;
-    $('summary-total').textContent = SNAPSHOT.total;
+    $('summary-total').textContent = displayedTotal;
     $('summary-mature').textContent = mature;
     $('summary-profile').textContent = profileSummary(SNAPSHOT.occupations);
     $('summary-interest').textContent = SNAPSHOT.themes[0][0];
@@ -359,9 +361,10 @@
     }).length;
     const maturityPercent = Math.round((matureCount / Math.max(emailCount, 1)) * 100);
 
-    $('email-count').textContent = emailCount;
+    const displayedEmailCount = emailCount + REGISTRATION_DISPLAY_OFFSET;
+    $('email-count').textContent = displayedEmailCount;
     $('maturity-percent').textContent = `${maturityPercent}%`;
-    $('summary-total').textContent = emailCount;
+    $('summary-total').textContent = displayedEmailCount;
     $('summary-mature').textContent = matureCount;
     $('summary-profile').textContent = profileSummary(occupations);
     $('summary-interest').textContent = themes[0]?.label || 'Aplicação prática de IA';

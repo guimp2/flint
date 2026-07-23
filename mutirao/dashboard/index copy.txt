@@ -107,7 +107,7 @@
         <svg aria-hidden="true"><use href="assets/icons.svg#info"></use></svg>
         <div>
           <strong>Metodologia</strong>
-          <span>O total exibido soma 24 inscrições fixas externas à planilha à quantidade de células preenchidas na coluna “E-mail”. Todos os demais indicadores usam somente as linhas com e-mail preenchido na aba BH, sem deduplicação.</span>
+          <span>Inscritos = células preenchidas na coluna “E-mail”. Ocupações e temas são agrupados automaticamente por palavras-chave; uma resposta de aprendizagem pode aparecer em mais de um tema.</span>
         </div>
       </section>
     </main>
